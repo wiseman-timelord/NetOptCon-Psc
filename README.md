@@ -7,7 +7,6 @@ NetOptX-Psc is a multifaceted tool for network optimization, Windows updates man
 
 
 ## FEATURES
-- Administrative privilege management.
 - Menu-driven interface for easy navigation.
 - Comprehensive network tweak options.
 - Windows update management, including Edge updates.
