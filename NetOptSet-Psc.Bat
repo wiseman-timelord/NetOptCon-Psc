@@ -1,5 +1,6 @@
 REM Script: NetOptSet-Psc.Bat
 @echo off
+
 :: Initialization
 mode con cols=60 lines=30
 color 0E
@@ -37,11 +38,17 @@ REM Function
 :startScript
 echo.
 echo.
-echo Launching PowerShellCore Script...
-timeout /t 1 /nobreak >nul
-pwsh.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1"
-echo.
-echo ...PowerShellCore Script Exited.
+:: Check for presence of pwsh.exe
+where pwsh >nul 2>&1
+if %ERRORLEVEL% equ 0 (
+    echo Launching as PowerShellCore Script...
+    pwsh.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1"
+    echo ...PowerShellCore Script Exited.
+) else (
+    echo Launching as PowerShell Script...
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1"
+    echo ...PowerShell Script Exited.
+)
 timeout /t 1 /nobreak >nul
 goto end
 
