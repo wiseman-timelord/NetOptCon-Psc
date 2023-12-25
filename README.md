@@ -16,3 +16,6 @@ NetOptX-Psc is a multifaceted tool for network optimization, Windows updates man
 
 ## NOTATION
 This program was created out of combining my programs, "EdgeNoUpdate" and "NetOpt" and "AirTweak", it was intended to combine the, features and functions, of all of them, while to be having a few improvements along the way.
+
+## DISCLAIMER
+This program is provided "as is" without warranties or support. Users are responsible for the content they, download and use, as well as, any resulting damage to, hardware or sanity.
