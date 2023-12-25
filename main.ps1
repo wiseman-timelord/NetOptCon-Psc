@@ -3,6 +3,10 @@
 # Initialization
 . .\scripts\ascii.ps1
 . .\scripts\settings.psd1
+. .\scripts\network.ps1
+. .\scripts\updates.ps1
+. .\scripts\cache.ps1
+. .\scripts\backup.ps1
 
 # Variables
 $global:choice = $null
@@ -26,7 +30,8 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 # Function Show Mainmenu
 function Show-MainMenu {
     Clear-Host
-    Write-Host "NetOptSet-Psc - Network Optimization and Configuration Management"
+    Write-Host "====================( NetOptSet-Psc )======================"	
+    Write-Host "Network Optimization and Configuration Management"
     Write-Host "1. Network Tweaks and Optimization"
     Write-Host "2. Windows Updates Management"
     Write-Host "3. Cache Management"
@@ -49,6 +54,7 @@ function Show-MainMenu {
 
 # Function Networktweaksmenu
 function NetworkTweaksMenu {
+    Write-Host "====================( NetOptSet-Psc )======================"
     Write-Host "Network Tweaks and Optimization:"
     Write-Host "1. Toggle RmSvc Service"
     Write-Host "2. Flush DNS Cache"
@@ -68,6 +74,7 @@ function NetworkTweaksMenu {
 
 # Function Windowsupdatesmenu
 function WindowsUpdatesMenu {
+    Write-Host "====================( NetOptSet-Psc )======================"
     Write-Host "Windows Updates Management:"
     Write-Host "1. Check and Install Updates"
     Write-Host "2. Disable Edge Updates"
@@ -83,6 +90,7 @@ function WindowsUpdatesMenu {
 
 # Function Cachemanagementmenu
 function CacheManagementMenu {
+    Write-Host "====================( NetOptSet-Psc )======================"
     Write-Host "Cache Management:"
     Write-Host "1. Clear DNS Cache"
     Write-Host "2. Clear Browser Caches"
@@ -98,6 +106,7 @@ function CacheManagementMenu {
 
 # Function Backuprestoremenu
 function BackupRestoreMenu {
+    Write-Host "====================( NetOptSet-Psc )======================"
     Write-Host "Backup and Restore Settings:"
     Write-Host "1. Backup Current Settings"
     Write-Host "2. Restore Settings from Backup"
@@ -108,164 +117,6 @@ function BackupRestoreMenu {
         '2' { RestoreSettings }
         '3' { return }
         default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
-    }
-}
-
-# Function Togglermsvc
-function ToggleRmSvc {
-    try {
-        $serviceStatus = (Get-Service -Name "RmSvc").Status
-        if ($serviceStatus -eq "Running") {
-            Set-Service -Name "RmSvc" -StartupType Disabled
-            Write-Host "RmSvc service disabled"
-        } else {
-            Set-Service -Name "RmSvc" -StartupType Automatic
-            Write-Host "RmSvc service enabled"
-        }
-    } catch {
-        Write-Host "Error toggling RmSvc: $_" -ForegroundColor Red
-    }
-}
-
-# Function Optimizewirelessadapter
-function OptimizeWirelessAdapter {
-    try {
-        $adapter = Get-NetAdapter | Where-Object { $_.Name -like '*Wireless*' } | Select-Object -First 1
-        if ($adapter) {
-            Set-NetAdapterPowerManagement -Name $adapter.Name -WakeOnMagicPacket Enabled
-            Write-Host "Wireless adapter settings optimized"
-        } else {
-            Write-Host "No wireless adapter found"
-        }
-    } catch {
-        Write-Host "Error optimizing wireless adapter: $_" -ForegroundColor Red
-    }
-}
-
-# Function Togglewindowsautotuning
-function ToggleWindowsAutoTuning {
-    try {
-        netsh int tcp set global autotuninglevel=disabled
-        Write-Host "Windows Auto-Tuning disabled"
-    } catch {
-        Write-Host "Error toggling Windows Auto-Tuning: $_" -ForegroundColor Red
-    }
-}
-
-# Function Flushdnscache
-function FlushDnsCache {
-    try {
-        Clear-DnsClientCache
-        Write-Host "DNS cache cleared"
-    } catch {
-        Write-Host "Error flushing DNS cache: $_" -ForegroundColor Red
-    }
-}
-
-# Function Invoke Networktweaks
-function Invoke-NetworkTweaks {
-    Write-Host "Performing Network Tweaks and Optimization"
-	try {
-        $serviceStatus = (Get-Service -Name "RmSvc").Status
-        if ($serviceStatus -eq "Running") {
-            Set-Service -Name "RmSvc" -StartupType Disabled
-            Write-Host "RmSvc service disabled"
-        } else {
-            Set-Service -Name "RmSvc" -StartupType Automatic
-            Write-Host "RmSvc service enabled"
-        }
-        Clear-DnsClientCache
-        Write-Host "DNS cache cleared"
-        $adapter = Get-NetAdapter | Where-Object { $_.Name -like '*Wireless*' } | Select-Object -First 1
-        if ($adapter) {
-            Set-NetAdapterPowerManagement -Name $adapter.Name -WakeOnMagicPacket Enabled
-            Write-Host "Wireless adapter settings optimized"
-        }
-        netsh int tcp set global autotuninglevel=disabled
-        Write-Host "Windows Auto-Tuning disabled"
-    } catch {
-        Write-Host "Error in Network Tweaks: $_" -ForegroundColor Red
-    }
-}
-
-# Function Manage Windowsupdates
-function Manage-WindowsUpdates {
-    Install-Module -Name PSWindowsUpdate -Force -ErrorAction SilentlyContinue
-    Get-WindowsUpdate | Install-WindowsUpdate -ErrorAction SilentlyContinue
-    Write-Host "Windows updates managed"
-}
-
-# Function Manage Cache
-function Manage-Cache {
-    Write-Host "Managing Cache"
-    Clear-DnsClientCache
-    Write-Host "DNS cache cleared"
-}
-
-function BackupSettings {
-    try {
-        $currentSettings = Import-PowerShellDataFile -Path .\scripts\settings.psd1
-        $currentSettings | Export-Clixml -Path $currentSettings.BackupLocation
-        Write-Host "Settings backed up to $($currentSettings.BackupLocation)"
-    } catch {
-        Write-Host "Error in backup: $_" -ForegroundColor Red
-    }
-}
-
-function RestoreSettings {
-    try {
-        $backupLocation = ".\backup\settingsBackup.psd1"
-        if (Test-Path $backupLocation) {
-            $restoredSettings = Import-Clixml -Path $backupLocation
-            Write-Host "Settings restored from backup"
-        } else {
-            Write-Host "Backup file not found"
-        }
-    } catch {
-        Write-Host "Error in restore: $_" -ForegroundColor Red
-    }
-}
-
-function DisableEdgeUpdates {
-    try {
-        $PF = if ([Environment]::Is64BitOperatingSystem) { ${env:ProgramFiles(x86)} } else { $env:ProgramFiles }
-        $edgePath = "$PF\Microsoft\Edge\Application\msedge.exe"
-
-        if (Test-Path $edgePath) {
-            Get-Process "MicrosoftEdgeUpdate", "msedge", "edgeupdate", "edgeupdatem", "MicrosoftEdgeElevationService" -ErrorAction SilentlyContinue | Stop-Process -Force
-            "BrowserReplacementTask", "TaskMachineCore", "TaskMachineUA" | ForEach-Object { schtasks.exe /Delete /TN "\MicrosoftEdgeUpdate$_" /F }
-            Remove-Item "$PF\Microsoft\EdgeUpdate" -Recurse -Force -ErrorAction SilentlyContinue
-            Write-Host "Microsoft Edge updates disabled successfully."
-        } else {
-            Write-Host "Microsoft Edge is not installed."
-        }
-    } catch {
-        Write-Host "Error disabling Edge updates: $_" -ForegroundColor Red
-    }
-}
-
-
-function ClearBrowserCaches {
-    $browsers = @(
-        @{ Name = "Firefox"; RegPath = "HKLM:\SOFTWARE\Mozilla\Mozilla Firefox"; CachePath = { "C:\Users\$env:USERNAME\AppData\Local\Mozilla\Firefox\Profiles\*\cache2\entries" } },
-        @{ Name = "Internet Explorer"; RegPath = "HKLM:\SOFTWARE\Microsoft\Internet Explorer"; CachePath = { RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8; $null } },
-        @{ Name = "Microsoft Edge"; RegPath = "HKLM:\SOFTWARE\Microsoft\Edge"; CachePath = { "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Cache" } }
-        # Additional browsers can be added here
-    )
-
-    foreach ($browser in $browsers) {
-        if (Test-Path $browser.RegPath) {
-            Write-Host "$($browser.Name) detected."
-            $cachePath = & $browser.CachePath.Invoke()
-            if ($cachePath -and (Test-Path $cachePath)) {
-                Remove-Item $cachePath -Recurse -Force
-                Write-Host "$($browser.Name) cache cleared."
-            } else {
-                Write-Host "Cache path for $($browser.Name) not found."
-            }
-        } else {
-            Write-Host "$($browser.Name) not installed."
-        }
     }
 }
 
