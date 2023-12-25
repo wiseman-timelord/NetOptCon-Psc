@@ -65,6 +65,7 @@ if not exist ".\scripts\network.ps1" set missing=1
 if not exist ".\scripts\updates.ps1" set missing=1
 if not exist ".\scripts\cache.ps1" set missing=1
 if not exist ".\scripts\backup.ps1" set missing=1
+if not exist ".\scripts\settings.psd1" set missing=1
 if not exist ".\main.ps1" set missing=1
 
 if %missing%==1 (
