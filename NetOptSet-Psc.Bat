@@ -2,9 +2,10 @@ REM Script: NetOptSet-Psc.Bat
 @echo off
 
 :: Initialization
-mode con cols=60 lines=30
+mode con cols=60 lines=45
 color 0E
 title NetOptSet-Psc Launcher
+cd /d "%~dp0"
 echo.
 echo Launcher Script Started...
 
@@ -42,11 +43,15 @@ echo.
 where pwsh >nul 2>&1
 if %ERRORLEVEL% equ 0 (
     echo Launching as PowerShellCore Script...
-    pwsh.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1"
+    echo.
+    timeout /t 2 /nobreak >nul
+    pwsh.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1" > "NetOptSet-Psc.Log" 2>&1
     echo ...PowerShellCore Script Exited.
 ) else (
     echo Launching as PowerShell Script...
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1"
+    echo.
+    timeout /t 2 /nobreak >nul
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1" > "NetOptSet-Psc.Log" 2>&1
     echo ...PowerShell Script Exited.
 )
 timeout /t 1 /nobreak >nul

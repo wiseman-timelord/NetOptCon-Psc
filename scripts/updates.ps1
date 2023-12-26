@@ -24,5 +24,3 @@ function DisableEdgeUpdates {
         Write-Host "Error disabling Edge updates: $_" -ForegroundColor Red
     }
 }
-
-Export-ModuleMember -Function WindowsUpdatesMenu, Manage-WindowsUpdates, DisableEdgeUpdates

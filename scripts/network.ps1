@@ -76,5 +76,3 @@ function Invoke-NetworkTweaks {
         Write-Host "Error in Network Tweaks: $_" -ForegroundColor Red
     }
 }
-
-Export-ModuleMember -Function NetworkTweaksMenu, ToggleRmSvc, OptimizeWirelessAdapter, ToggleWindowsAutoTuning, FlushDnsCache, Invoke-NetworkTweaks

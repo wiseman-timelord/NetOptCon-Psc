@@ -1,7 +1,7 @@
 # Script: main.ps1
 
 # Initialization
-. .\scripts\ascii.ps1
+Set-Location -Path $PSScriptRoot
 . .\scripts\settings.psd1
 . .\scripts\network.ps1
 . .\scripts\updates.ps1
@@ -29,7 +29,8 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 
 # Function Show Mainmenu
 function Show-MainMenu {
-    Clear-Host
+    Start-Sleep -Seconds 10 #-- 2 normal, 10 debug
+	Clear-Host
     Write-Host "====================( NetOptSet-Psc )======================"	
     Write-Host "Network Optimization and Configuration Management"
     Write-Host "1. Network Tweaks and Optimization"
@@ -54,6 +55,8 @@ function Show-MainMenu {
 
 # Function Networktweaksmenu
 function NetworkTweaksMenu {
+	Start-Sleep -Seconds 2
+	Clear-Host
     Write-Host "====================( NetOptSet-Psc )======================"
     Write-Host "Network Tweaks and Optimization:"
     Write-Host "1. Toggle RmSvc Service"
@@ -74,6 +77,8 @@ function NetworkTweaksMenu {
 
 # Function Windowsupdatesmenu
 function WindowsUpdatesMenu {
+	Start-Sleep -Seconds 2
+	Clear-Host
     Write-Host "====================( NetOptSet-Psc )======================"
     Write-Host "Windows Updates Management:"
     Write-Host "1. Check and Install Updates"
@@ -90,6 +95,8 @@ function WindowsUpdatesMenu {
 
 # Function Cachemanagementmenu
 function CacheManagementMenu {
+	Start-Sleep -Seconds 2
+	Clear-Host
     Write-Host "====================( NetOptSet-Psc )======================"
     Write-Host "Cache Management:"
     Write-Host "1. Clear DNS Cache"
@@ -106,6 +113,8 @@ function CacheManagementMenu {
 
 # Function Backuprestoremenu
 function BackupRestoreMenu {
+	Start-Sleep -Seconds 2
+	Clear-Host
     Write-Host "====================( NetOptSet-Psc )======================"
     Write-Host "Backup and Restore Settings:"
     Write-Host "1. Backup Current Settings"

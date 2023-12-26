@@ -31,4 +31,3 @@ function Manage-Cache {
     Write-Host "DNS cache cleared"
 }
 
-Export-ModuleMember -Function CacheManagementMenu, Manage-Cache, ClearBrowserCaches

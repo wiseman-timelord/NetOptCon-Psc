@@ -1,6 +1,3 @@
-# .scripts\settings.psd1
-# Configuration settings for NetOptX-Psc
-
 @{
     # Network Optimization Settings
     "AutoTuningLevel" = "default"

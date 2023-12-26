@@ -23,5 +23,3 @@ function RestoreSettings {
         Write-Host "Error in restore: $_" -ForegroundColor Red
     }
 }
-
-Export-ModuleMember -Function BackupRestoreMenu, BackupSettings, RestoreSettings
