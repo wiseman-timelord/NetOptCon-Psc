@@ -45,13 +45,13 @@ if %ERRORLEVEL% equ 0 (
     echo Launching as PowerShellCore Script...
     echo.
     timeout /t 2 /nobreak >nul
-    pwsh.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1" > "NetOptSet-Psc.Log" 2>&1
+    pwsh.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1" > "Crash.Log" 2>&1
     echo ...PowerShellCore Script Exited.
 ) else (
     echo Launching as PowerShell Script...
     echo.
     timeout /t 2 /nobreak >nul
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1" > "NetOptSet-Psc.Log" 2>&1
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1" > "Crash.Log" 2>&1
     echo ...PowerShell Script Exited.
 )
 timeout /t 1 /nobreak >nul

@@ -7,6 +7,7 @@ Set-Location -Path $PSScriptRoot
 . .\scripts\updates.ps1
 . .\scripts\cache.ps1
 . .\scripts\backup.ps1
+. .\scripts\monitor.ps1
 
 # Variables
 $global:choice = $null
@@ -20,6 +21,24 @@ $global:currentSettings = $null
 $global:backupLocation = $null
 $global:PF = $null
 $global:cachePath = $null
+$global:exitMonitor = $false
+$global:netAdapters = $null
+$global:matchedAdapter = $null
+$global:netAdapterName = $null
+$global:initialStats = $null
+$global:totalReceivedRate = 0
+$global:totalSentRate = 0
+$global:count = 0
+$global:currentStats = $null
+$global:avgReceivedRate = 0
+$global:avgSentRate = 0
+$global:totalReceivedKb = 0
+$global:totalSentKb = 0
+$global:totalReceivedErrors = 0
+$global:totalSentErrors = 0
+$global:totalReceivedDiscards = 0
+$global:totalSentDiscards = 0
+
 
 # Get-Admin
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
@@ -27,26 +46,47 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
+# Function Reset Monitorvariables
+function Reset-MonitorVariables {
+    $global:totalReceivedRate = 0
+    $global:totalSentRate = 0
+    $global:count = 0
+    $global:avgReceivedRate = 0
+    $global:avgSentRate = 0
+    $global:totalReceivedKb = 0
+    $global:totalSentKb = 0
+    $global:totalReceivedErrors = 0
+    $global:totalSentErrors = 0
+    $global:totalReceivedDiscards = 0
+    $global:totalSentDiscards = 0
+}
+
+# Function Show Title
+function Show-Title {
+    Write-Host "`n====================( NetOptSet-Psc )======================`n"
+}
+
 # Function Show Mainmenu
 function Show-MainMenu {
     Start-Sleep -Seconds 10 #-- 2 normal, 10 debug
 	Clear-Host
-    Write-Host "====================( NetOptSet-Psc )======================"	
+	Show-Title
     Write-Host "Network Optimization and Configuration Management"
     Write-Host "1. Network Tweaks and Optimization"
     Write-Host "2. Windows Updates Management"
     Write-Host "3. Cache Management"
-    Write-Host "4. Backup and Restore Settings"
-    Write-Host "5. Exit"
+	Write-Host "4. Network Monitoring"
+    Write-Host "5. Backup and Restore Settings"
+    Write-Host "6. Exit"
     $global:choice = Read-Host "Please enter your choice"
     try {
-        switch ($global:choice) {
+        switch (${global}:choice) {
             '1' { Invoke-NetworkTweaks }
             '2' { Manage-WindowsUpdates }
             '3' { Manage-Cache }
-            '4' { BackupRestore-Settings }
-            '5' { Write-Host "Exiting program... Goodbye!"; exit }
-            default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
+            '4' { Select-NetworkAdapters }  # New option for Network Monitoring
+            '5' { BackupRestore-Settings }
+            '6' { Write-Host "Exiting program... Goodbye!"; exit }
         }
     } catch {
         Write-Host "Error encountered: $_" -ForegroundColor Red
@@ -57,7 +97,7 @@ function Show-MainMenu {
 function NetworkTweaksMenu {
 	Start-Sleep -Seconds 2
 	Clear-Host
-    Write-Host "====================( NetOptSet-Psc )======================"
+    Show-Title
     Write-Host "Network Tweaks and Optimization:"
     Write-Host "1. Toggle RmSvc Service"
     Write-Host "2. Flush DNS Cache"
@@ -79,7 +119,7 @@ function NetworkTweaksMenu {
 function WindowsUpdatesMenu {
 	Start-Sleep -Seconds 2
 	Clear-Host
-    Write-Host "====================( NetOptSet-Psc )======================"
+    Show-Title
     Write-Host "Windows Updates Management:"
     Write-Host "1. Check and Install Updates"
     Write-Host "2. Disable Edge Updates"
@@ -97,7 +137,7 @@ function WindowsUpdatesMenu {
 function CacheManagementMenu {
 	Start-Sleep -Seconds 2
 	Clear-Host
-    Write-Host "====================( NetOptSet-Psc )======================"
+    Show-Title
     Write-Host "Cache Management:"
     Write-Host "1. Clear DNS Cache"
     Write-Host "2. Clear Browser Caches"
@@ -108,6 +148,38 @@ function CacheManagementMenu {
         '2' { ClearBrowserCaches }
         '3' { return }
         default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
+    }
+}
+
+
+# Function Select Networkadapters
+function Select-NetworkAdapters {
+    $Adapters = Get-AllNetworkAdapters
+    if ($Adapters.Count -eq 0) {
+        Write-Host "No Adapters Found. Exiting..." -ForegroundColor Yellow
+        return
+    }
+    while ($true) {
+        Clear-Host
+        Write-Host "Network Adapter Monitoring`n" -ForegroundColor Cyan
+        for ($index = 0; $index -lt $Adapters.Count; $index++) {
+            Write-Host "$($index + 1). $($Adapters[$index].Name)"
+        }
+        Write-Host "`nSelect Adapter '1-#', Exit 'X':" -ForegroundColor Cyan
+        $selection = Read-Host "Enter Your Choice"
+        switch ($selection.ToUpper()) {
+            "X" { return }
+            default {
+                if ($selection -match "^\d+$" -and $selection -le $Adapters.Count -and $selection -gt 0) {
+                    Initialize-Monitor -AdapterName $Adapters[$selection - 1].Name
+                    $result = Monitor-AdapterLoop
+                    if ($result -eq "Menu") { continue }
+                    elseif ($result -eq "Exit") { return }
+                } else {
+                    Write-Host "Invalid input. Please try again." -ForegroundColor Red
+                }
+            }
+        }
     }
 }
 
