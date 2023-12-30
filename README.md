@@ -1,6 +1,9 @@
 # Netsetera-Psc
 ## STATUS
-Alpha. Do not use, the files are present for backup purposes ONLY, and will likely break, something or itself. Wait.
+- Alpha. Do not use, the files are present for backup purposes ONLY, and will likely break, something or itself. Please Wait.
+- Outstanding work...
+1. check over each function, and determine what versions of windows it is compatible with.
+2. edit each menu item, add relating windows compatibility information.
 
 ## DESCRIPTION
 Netsetera-Psc is a comprehensive PowerShell script for managing network settings, Windows updates, cache, and backup/restore functionalities. It offers a user-friendly menu-driven interface, and includes various functional modules for specific tasks like tweaking network settings, managing Windows updates, handling cache for different browsers, and backing up/restoring configuration settings. The accompanying settings.psd1 file provides a centralized location for configurable settings, enhancing the script's adaptability to different environments or requirements.
