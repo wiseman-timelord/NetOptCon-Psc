@@ -2,7 +2,6 @@
 
 # Initialization
 Set-Location -Path $PSScriptRoot
-. .\scripts\settings.psd1
 . .\scripts\network.ps1
 . .\scripts\updates.ps1
 . .\scripts\cache.ps1
@@ -83,9 +82,9 @@ function NetworkTweaksMenu {
 	Clear-Host
     Show-Title
     Write-Host "====================( Network Tweaks )======================"
-    Write-Host "                 1. Toggle RmSvc Service"
-    Write-Host "               2. Optimize Wireless Adapter"
-    Write-Host "              3. Toggle Windows Auto-Tuning"
+    Write-Host "               1. Toggle RmSvc Service (10/11)"
+    Write-Host "          2. Optimize Wireless Adapter (7/8.1/10/11)"
+    Write-Host "          3. Toggle Windows Auto-Tuning (7/8.1/10/11)"
     $networkChoice = Read-Host "`nSelect, Options=1-3, Return=X: "
     switch ($networkChoice) {
         '1' { ToggleRmSvc }
@@ -102,8 +101,8 @@ function WindowsUpdatesMenu {
 	Clear-Host
     Show-Title
     Write-Host "====================( Windows Updates )====================="
-    Write-Host "1. Disable Windows Updates"
-    Write-Host "2. Disable Edge Updates"
+    Write-Host "          1. Disable Windows Updates (7/8.1/10/11)"
+    Write-Host "           2. Disable Edge Updates (7/8.1/10/11)"
     $updateChoice = Read-Host "`nSelect, Options=1-2, Return=X: "
     switch ($updateChoice) {
         '1' { Disable-WindowsUpdates }
@@ -121,8 +120,8 @@ function CacheManagementMenu {
 	Clear-Host
     Show-Title
     Write-Host "===================( Cache Management )====================="
-    Write-Host "1. Clear DNS Cache"
-    Write-Host "2. Clear Multi-Browser Caches"
+    Write-Host "              1. Clear DNS Cache (8/8.1/10/11)"
+    Write-Host "         2. Clear Multi-Browser Caches (8/8.1/10/11)"
     $cacheChoice = Read-Host "`nSelect, Options=1-3, Return=X: "
     switch ($cacheChoice) {
         '1' { ClearDnsClientCache }

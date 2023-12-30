@@ -1,20 +1,19 @@
 @{
     # Network Optimization Settings
     "AutoTuningLevel" = "default"
-    "MaxUserPort" = 65535
-    "TcpTimedWaitDelay" = 30
+    "RmSvcServiceStatus" = "default"
+    "WirelessAdapterPowerManagement" = "default"
 
     # Windows Updates Management Settings
     "WindowsUpdateSettings" = @{
         "AutomaticUpdates" = "default"
-        # Additional settings can be added here
+        "EdgeUpdatesDisabled" = $false
     }
 
     # Cache Management Settings
     "CacheLocations" = @{
         "DNSCache" = "N/A"
         "EdgeCache" = "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Cache"
-        # Additional cache locations
     }
 
     # Backup and Restore Settings
