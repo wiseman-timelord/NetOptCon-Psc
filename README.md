@@ -2,8 +2,7 @@
 ## STATUS
 - Alpha. Do not use, the files are present for backup purposes ONLY, and will likely break, something or itself. Please Wait.
 - Outstanding work...
-1. Give all scripts a once over, cache.ps1 partly done, check second function.
-2. Enhance printed lines, and remember to add waits after concluding prints.
+1. Give all scripts a once over, while enhance printed lines, and remember to add waits after concluding prints, cache.ps1 done.
 3. check over monitor.ps1, and determine what versions of windows it is compatible with, add relating windows compatibility information somewhere if it is not compatible with win7/8/10/11.
 4. Idea - Performance benchmark instead of performance testing, get solid large url, or several and do in sequence, example (http://ipv4.download.thinkbroadband.com/1GB.zip). See how fast it download, with limit of 1 minute, present results, how long expired, how much was downloaded, some kind of additional scoring system. if exist cache folder, if not create cache folder and use, delete contents upon return/restart. Note if I do this, then there needs to be additional note, that short tests on wireless can produce un-reliable results, therein, to be able to set the time limit longer, see how many lines it takes up later.
 
