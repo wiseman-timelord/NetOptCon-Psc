@@ -63,7 +63,7 @@ function Reset-MonitorVariables {
 
 # Function Show Title
 function Show-Title {
-    Write-Host "`n====================( NetOptSet-Psc )======================`n"
+    Write-Host "`n====================( Netsetera-Psc )======================`n"
 }
 
 # Function Show Mainmenu
@@ -188,7 +188,7 @@ function Select-NetworkAdapters {
 function BackupRestoreMenu {
 	Start-Sleep -Seconds 2
 	Clear-Host
-    Write-Host "====================( NetOptSet-Psc )======================"
+    Show-Title
     Write-Host "Backup and Restore Settings:"
     Write-Host "1. Backup Current Settings"
     Write-Host "2. Restore Settings from Backup"
