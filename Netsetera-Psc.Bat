@@ -4,7 +4,7 @@ REM Script: Netsetera-Psc.Bat
 :: Initialization
 mode con cols=60 lines=30
 color 0E
-title Netsetera-Psc Launcher
+title Netsetera-Psc
 cd /d "%~dp0"
 echo.
 echo Launcher Script Started...
