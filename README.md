@@ -1,5 +1,5 @@
 # Netsetera-Psc
-## STATUS:
+## STATUS
 Alpha. Do not use, the files are present for backup purposes ONLY, and will likely break, something or itself. Wait.
 
 ## DESCRIPTION
