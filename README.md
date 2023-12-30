@@ -2,7 +2,7 @@
 ## STATUS
 - Alpha. Do not use, the files are present for backup purposes ONLY, and will likely break, something or itself. Please Wait.
 - Outstanding work...
-1. Idea - Performance benchmark instead of performance testing, get solid large url, or several and do in sequence, example (http://ipv4.download.thinkbroadband.com/1GB.zip). See how fast it download, with limit of 1 minute, present results, how long expired, how much was downloaded, some kind of additional scoring system. if exist cache folder, if not create cache folder and use, delete contents upon return/restart. Note if I do this, then there needs to be additional note, that short tests on wireless can produce un-reliable results, therein, to be able to set the time limit longer, see how many lines it takes up later.
+1. Idea - Performance benchmark instead of performance testing. See how fast it download, with limit of 1 minute, present results, how long expired, how much was downloaded, score in MB downloaded, if finish early then predict how many MB would be achieved and add on, and also deduct 1 point for each, error and discard. Figured out.
 
 ## DESCRIPTION
 Netsetera-Psc is a comprehensive PowerShell script for managing network settings, Windows updates, cache, and backup/restore functionalities. It offers a user-friendly menu-driven interface, and includes various functional modules for specific tasks like tweaking network settings, managing Windows updates, handling cache for different browsers, and backing up/restoring configuration settings. The accompanying settings.psd1 file provides a centralized location for configurable settings, enhancing the script's adaptability to different environments or requirements.
