@@ -61,7 +61,7 @@ function Show-MainMenu {
     Write-Host "                    3. Cache Management"
     Write-Host "                    4. Network Testing"
     Write-Host "                   5. Backup And Restore"
-    $global:choice = Read-Host "`nSelect, Options=1-5, Return=X: "
+    $global:choice = Read-Host "`nSelect, Options=1-5, Return=X"
     try {
         switch ($global:choice) {
             '1' { NetworkTweaksMenu }
@@ -86,7 +86,7 @@ function NetworkTweaksMenu {
     Write-Host "               1. Toggle RmSvc Service (10/11)"
     Write-Host "          2. Optimize Wireless Adapter (7/8.1/10/11)"
     Write-Host "          3. Toggle Windows Auto-Tuning (7/8.1/10/11)"
-    $networkChoice = Read-Host "`nSelect, Options=1-3, Return=X: "
+    $networkChoice = Read-Host "`nSelect, Options=1-3, Return=X"
     try {
         switch ($networkChoice) {
             '1' { ToggleRmSvc }
@@ -108,7 +108,7 @@ function WindowsUpdatesMenu {
     Write-Host "====================( Windows Updates )====================="
     Write-Host "          1. Disable Windows Updates (7/8.1/10/11)"
     Write-Host "           2. Disable Edge Updates (7/8.1/10/11)"
-    $updateChoice = Read-Host "`nSelect, Options=1-2, Return=X: "
+    $updateChoice = Read-Host "`nSelect, Options=1-2, Return=X"
     try {
         switch ($updateChoice) {
             '1' { Disable-WindowsUpdates }
@@ -121,20 +121,15 @@ function WindowsUpdatesMenu {
     }
 }
 
-
-
-
-
-
 # Function CacheManagementMenu
 function CacheManagementMenu {
     Start-Sleep -Seconds 2
     Clear-Host
     Show-Title
-    Write-Host "===================( Cache Management )====================="
+	Write-Host "===================( Cache Management )====================="
     Write-Host "              1. Clear DNS Cache (8/8.1/10/11)"
     Write-Host "         2. Clear Multi-Browser Caches (8/8.1/10/11)"
-    $cacheChoice = Read-Host "`nSelect, Options=1-2, Return=X: "
+    $cacheChoice = Read-Host "`nSelect, Options=1-2, Return=X"
     try {
         switch ($cacheChoice) {
             '1' { ClearDnsClientCache }
@@ -161,11 +156,12 @@ function Select-NetworkAdapters {
         }
         while ($true) {
             Clear-Host
-            Write-Host "Network Adapter Monitoring`n" -ForegroundColor Cyan
+			Write-Host "====================( Network Testing )====================="
+            Write-Host "Monitoring Network Adapter...`n" -ForegroundColor Cyan
             for ($index = 0; $index -lt $Adapters.Count; $index++) {
                 Write-Host "$($index + 1). $($Adapters[$index].Name)"
             }
-            Write-Host "`nSelect, Adapter=1-#, Return=X: " -ForegroundColor Cyan
+            Write-Host "`nSelect, Adapter=1-#, Return=X" -ForegroundColor Cyan
             $selection = Read-Host "Enter Your Choice"
             switch ($selection.ToUpper()) {
                 "x" { return }
@@ -194,7 +190,7 @@ function BackupRestoreMenu {
     Write-Host "==================( Backup and Restore )===================="
     Write-Host "                   1. Backup Settings"
     Write-Host "                   2. Restore Settings"
-    $backupChoice = Read-Host "`nSelect, Options=1-2, Return=X: "
+    $backupChoice = Read-Host "`nSelect, Options=1-2, Return=X"
     try {
         switch ($backupChoice) {
             '1' { BackupSettings }
