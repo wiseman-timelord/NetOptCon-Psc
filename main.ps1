@@ -68,23 +68,23 @@ function Show-Title {
 
 # Function Show Mainmenu
 function Show-MainMenu {
-    Start-Sleep -Seconds 10 #-- 2 normal, 10 debug
-	Clear-Host
-	Show-Title
+    Start-Sleep -Seconds 2 #-- 2 normal, 10 debug
+    Clear-Host
+    Show-Title
     Write-Host "Network Optimization and Configuration Management"
     Write-Host "1. Network Tweaks and Optimization"
     Write-Host "2. Windows Updates Management"
     Write-Host "3. Cache Management"
-	Write-Host "4. Network Monitoring"
+    Write-Host "4. Network Monitoring"
     Write-Host "5. Backup and Restore Settings"
     Write-Host "6. Exit"
     $global:choice = Read-Host "Please enter your choice"
     try {
-        switch (${global}:choice) {
+        switch ($global:choice) {
             '1' { Invoke-NetworkTweaks }
             '2' { Manage-WindowsUpdates }
             '3' { Manage-Cache }
-            '4' { Select-NetworkAdapters }  # New option for Network Monitoring
+            '4' { Select-NetworkAdapters }
             '5' { BackupRestore-Settings }
             '6' { Write-Host "Exiting program... Goodbye!"; exit }
         }
@@ -92,6 +92,7 @@ function Show-MainMenu {
         Write-Host "Error encountered: $_" -ForegroundColor Red
     }
 }
+
 
 # Function Networktweaksmenu
 function NetworkTweaksMenu {
@@ -206,5 +207,4 @@ function BackupRestoreMenu {
 while ($true) {
     Show-MainMenu
 }
-Show-AsciiBanner
 Show-MainMenu

@@ -2,14 +2,25 @@ REM Script: NetOptSet-Psc.Bat
 @echo off
 
 :: Initialization
-mode con cols=60 lines=45
+mode con cols=60 lines=30
 color 0E
 title NetOptSet-Psc Launcher
 cd /d "%~dp0"
 echo.
 echo Launcher Script Started...
+echo.
 
-REM Function
+:: Check Admin Rights
+echo Checking Admin Rights...
+net session >nul 2>&1
+if %errorlevel% == 0 (
+    echo ...Admin Rights Success.
+) else (
+    echo ...Restart With Admin!
+    goto end
+)
+
+:: Main Menu
 :menu
 timeout /t 2 /nobreak >nul
 cls
@@ -18,54 +29,53 @@ echo       ^| \ ^| ^| ^_^_^_^| ^|^_ / ^_ \ ^_ ^_^_ ^| ^|^_/ ^_^_^_^|  ^_^_^_^| ^
 echo       ^|  \^| ^|/ ^_ \ ^_^_^| ^| ^| ^| '^_ \^| ^_^_\^_^_^_ \ / ^_ \ ^_^_^|
 echo       ^| ^|\  ^|  ^_^_/ ^|^_^| ^|^_^| ^| ^|^_) ^| ^|^_ ^_^_^_) ^|  ^_^_/ ^|^_ 
 echo       ^|^_^| \^_^|\^_^_^_^|\^_^_^|\^_^_^_/^| .^_^_/ \^_^_^|^_^_^_^_/ \^_^_^_^|\^_^_^|
-echo                            ^|^_^|           
+echo                            ^|^_^|            
 echo ====================( NetOptSet-Psc )======================
 echo.
-echo                   1. Start NetOptSet-Psc,
-echo                   2. Check File Structure,
-echo                      0. Exit Launcher.
+echo                   1. Run NetOptSet-Psc,
+echo                  2. Check File Integrity,
+echo                     0. Exit Launcher.
 echo.
 
-REM Variables
+:: Variables
 set /p choice=Select, Options '1-2' or '0' To Exit : 
-if "%choice%"=="1" goto startScript
+echo.
+if "%choice%"=="1" goto executeMain
 if "%choice%"=="2" goto checkScript
 if "%choice%"=="0" goto end
+echo.
 echo Invalid choice. Try again.
 pause
 goto menu
 
-REM Function
-:startScript
-echo.
-echo.
-:: Check for presence of pwsh.exe
+
+:: Check for presence of pwsh.exe and execute main.ps1
+:executeMain
 where pwsh >nul 2>&1
 if %ERRORLEVEL% equ 0 (
     echo Launching as PowerShellCore Script...
     echo.
     timeout /t 2 /nobreak >nul
-    pwsh.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1" > "Crash.Log" 2>&1
+    pwsh.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1"
     echo ...PowerShellCore Script Exited.
 ) else (
     echo Launching as PowerShell Script...
     echo.
     timeout /t 2 /nobreak >nul
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1" > "Crash.Log" 2>&1
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\main.ps1"
     echo ...PowerShell Script Exited.
 )
 timeout /t 1 /nobreak >nul
-goto end
+goto menu
 
-REM Function
+:: Function to Check File Structure
 :checkScript
 echo.
-echo.
+echo Checking Script Files...
 set missing=0
-echo Checking Required Script Files...
 timeout /t 1 /nobreak >nul
 
-REM Check for PowerShell script files
+:: Check for PowerShell script files
 if not exist ".\scripts\network.ps1" set missing=1
 if not exist ".\scripts\updates.ps1" set missing=1
 if not exist ".\scripts\cache.ps1" set missing=1
@@ -74,17 +84,15 @@ if not exist ".\scripts\settings.psd1" set missing=1
 if not exist ".\main.ps1" set missing=1
 
 if %missing%==1 (
-    echo.
-    echo File Structure: Incorrect!
+    echo ...Failure, Re-Install Program!
 ) else (
-    echo.
-    echo File Structure: Correct!
+    echo ...Program Files Correct.
 )
 echo.
 timeout /t 2 /nobreak >nul
 goto menu
 
-REM Function
+:: End Function
 :end
 echo.
 echo ...Launcher Script Finished.
