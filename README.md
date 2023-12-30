@@ -3,6 +3,7 @@
 - Alpha. Do not use, the files are present for backup purposes ONLY, and will likely break, something or itself. Please Wait.
 - Outstanding work...
 1. Idea - Performance benchmark instead of performance testing. See how fast it download, with limit of 1 minute, present results, how long expired, how much was downloaded, score in MB downloaded, if finish early then predict how many MB would be achieved and add on, and also deduct 1 point for each, error and discard. Figured out.
+2. Figure out what URLS work, remove rest, add option to enter a URL (futureproof).
 
 ## DESCRIPTION
 Netsetera-Psc is a comprehensive PowerShell script for managing network settings, Windows updates, cache, and backup/restore functionalities. It offers a user-friendly menu-driven interface, and includes various functional modules for specific tasks like tweaking network settings, managing Windows updates, handling cache for different browsers, and backing up/restoring configuration settings. The accompanying settings.psd1 file provides a centralized location for configurable settings, enhancing the script's adaptability to different environments or requirements.
