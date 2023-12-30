@@ -9,14 +9,21 @@ cd /d "%~dp0"
 echo.
 echo Launcher Script Started...
 echo.
+timeout /t 2 /nobreak >nul
 
 :: Check Admin Rights
 echo Checking Admin Rights...
 net session >nul 2>&1
 if %errorlevel% == 0 (
     echo ...Admin Rights Success.
+    echo.
+    echo Loading Launcher Menu...
+    echo.    
+    timeout /t 2 /nobreak >nul
 ) else (
     echo ...Restart With Admin!
+    echo.
+    timeout /t 2 /nobreak >nul
     goto end
 )
 
@@ -24,11 +31,11 @@ if %errorlevel% == 0 (
 :menu
 timeout /t 2 /nobreak >nul
 cls
-echo  ^_   ^_      ^_            ^_                 
-echo ^| \ ^| ^| ^_^_^_^| ^|^_ ^_^_^_  ^_^_^_^| ^|^_ ^_^_^_ ^_ ^_^_ ^_^_ ^_ 
-echo ^|  \^| ^|/ ^_ \ ^_^_/ ^_^_^|/ ^_ \ ^_^_/ ^_ \ '^_^_/ ^_` ^|
-echo ^| ^|\  ^|  ^_^_/ ^|^_\^_^_ \  ^_^_/ ^|^|  ^_^_/ ^| ^| (^_^| ^|
-echo ^|^_^| \^_^|\^_^_^_^|\^_^_^|^_^_^_/\^_^_^_^|\^_^_\^_^_^_^|^_^|  \^_^_,^_^|         
+echo          ^_   ^_      ^_            ^_                 
+echo         ^| \ ^| ^| ^_^_^_^| ^|^_ ^_^_^_  ^_^_^_^| ^|^_ ^_^_^_ ^_ ^_^_ ^_^_ ^_ 
+echo         ^|  \^| ^|/ ^_ \ ^_^_/ ^_^_^|/ ^_ \ ^_^_/ ^_ \ '^_^_/ ^_` ^|
+echo         ^| ^|\  ^|  ^_^_/ ^|^_\^_^_ \  ^_^_/ ^|^|  ^_^_/ ^| ^| (^_^| ^|
+echo         ^|^_^| \^_^|\^_^_^_^|\^_^_^|^_^_^_/\^_^_^_^|\^_^_\^_^_^_^|^_^|  \^_^_,^_^|         
 echo ====================( Netsetera-Psc )======================
 echo.
 echo                   1. Run Netsetera-Psc,
