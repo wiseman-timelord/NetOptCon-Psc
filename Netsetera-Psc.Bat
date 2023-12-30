@@ -40,15 +40,14 @@ echo ====================( Netsetera-Psc )======================
 echo.
 echo                   1. Run Netsetera-Psc,
 echo                  2. Check File Integrity,
-echo                     0. Exit Launcher.
 echo.
 
 :: Variables
-set /p choice=Select, Options '1-2' or '0' To Exit : 
+set /p choice=Select, Options=1-2, Exit=X: 
 echo.
 if "%choice%"=="1" goto executeMain
 if "%choice%"=="2" goto checkScript
-if "%choice%"=="0" goto end
+if "%choice%"=="x" goto end
 echo.
 echo Invalid choice. Try again.
 pause

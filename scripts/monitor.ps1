@@ -1,9 +1,25 @@
 # Script: monitor.ps1
 
+# Function Reset Monitorvariables
+function Reset-MonitorVariables {
+    $global:totalReceivedRate = 0
+    $global:totalSentRate = 0
+    $global:count = 0
+    $global:avgReceivedRate = 0
+    $global:avgSentRate = 0
+    $global:totalReceivedKb = 0
+    $global:totalSentKb = 0
+    $global:totalReceivedErrors = 0
+    $global:totalSentErrors = 0
+    $global:totalReceivedDiscards = 0
+    $global:totalSentDiscards = 0
+}
+
 # Function Get Allnetworkadapters
 function Get-AllNetworkAdapters {
     Get-WmiObject -Class Win32_NetworkAdapter | Where-Object { $_.NetEnabled -eq $true } | Select-Object NetConnectionID, Name
 }
+
 
 # Function Initialize Monitor
 function Initialize-Monitor {

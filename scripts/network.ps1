@@ -41,15 +41,6 @@ function ToggleWindowsAutoTuning {
     }
 }
 
-# Function Flushdnscache
-function FlushDnsCache {
-    try {
-        Clear-DnsClientCache
-        Write-Host "DNS cache cleared"
-    } catch {
-        Write-Host "Error flushing DNS cache: $_" -ForegroundColor Red
-    }
-}
 
 # Function Invoke Networktweaks
 function Invoke-NetworkTweaks {

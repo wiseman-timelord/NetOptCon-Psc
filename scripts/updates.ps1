@@ -1,11 +1,22 @@
 # Script: updates.ps1
 
 # Function Manage Windowsupdates
-function Manage-WindowsUpdates {
-    Install-Module -Name PSWindowsUpdate -Force -ErrorAction SilentlyContinue
-    Get-WindowsUpdate | Install-WindowsUpdate -ErrorAction SilentlyContinue
-    Write-Host "Windows updates managed"
+function Disable-WindowsUpdates {
+    try {
+        sc.exe config wuauserv start=disabled
+        sc.exe stop wuauserv
+        sc.exe query wuauserv
+        $regStatus = REG.exe QUERY HKLM\SYSTEM\CurrentControlSet\Services\wuauserv /v Start
+        if ($regStatus -like '*0x4*') {
+            Write-Host "Windows Update service disabled successfully."
+        } else {
+            Write-Host "Failed to disable Windows Update service."
+        }
+    } catch {
+        Write-Host "Error occurred: $_"
+    }
 }
+
 
 function DisableEdgeUpdates {
     try {
