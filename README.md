@@ -2,11 +2,9 @@
 ## STATUS
 - Alpha. Do not use, the files are present for backup purposes ONLY, and will likely break, something or itself. Please Wait.
 - Outstanding work...
-1. Find out why settings.psd1 is popping up when I run the main.ps1 script.
-2. Give all scripts a once over.
-3. check over each function, and determine what versions of windows it is compatible with.
-4. edit each menu item, add relating windows compatibility information.
-5. Performance benchmark instead of performance testing, get solid large url (http://ipv4.download.thinkbroadband.com/1GB.zip) and see how fast it download, with limit of 1 minute, present results, how long expired, how much was downloaded, some kind of additional scoring system. if exist cache folder, delete contents upon return/restart.
+1. Give all scripts a once over, cache.ps1 partly done, check second function, remember to add waits to enhance printed lines.
+2. check over monitor.ps1, and determine what versions of windows it is compatible with, add relating windows compatibility information somewhere if it is not compatible with win7/8/10/11.
+3. Idea - Performance benchmark instead of performance testing, get solid large url, or several and do in sequence, example (http://ipv4.download.thinkbroadband.com/1GB.zip). See how fast it download, with limit of 1 minute, present results, how long expired, how much was downloaded, some kind of additional scoring system. if exist cache folder, if not create cache folder and use, delete contents upon return/restart.
 
 ## DESCRIPTION
 Netsetera-Psc is a comprehensive PowerShell script for managing network settings, Windows updates, cache, and backup/restore functionalities. It offers a user-friendly menu-driven interface, and includes various functional modules for specific tasks like tweaking network settings, managing Windows updates, handling cache for different browsers, and backing up/restoring configuration settings. The accompanying settings.psd1 file provides a centralized location for configurable settings, enhancing the script's adaptability to different environments or requirements.
