@@ -1,7 +1,9 @@
 # Script: backup.ps1
 
+# Function BackupSettings
 function BackupSettings {
     try {
+        Write-Host "Starting Backup..."
         $settingsToBackup = @{
             "AutoTuningLevel" = netsh int tcp show global | Select-String "autotuninglevel" -SimpleMatch | Out-String
             "RmSvcServiceStatus" = (Get-Service -Name "RmSvc").Status
@@ -16,23 +18,32 @@ function BackupSettings {
             }
         }
         $settingsToBackup | Export-Clixml -Path $settingsToBackup.BackupLocation
-        Write-Host "Settings backed up to $($settingsToBackup.BackupLocation)"
+        Write-Host "...Backup Complete."
+        Start-Sleep -Seconds 2
     } catch {
         Write-Host "Error in backup: $_" -ForegroundColor Red
+        Start-Sleep -Seconds 2
     }
 }
 
+# Function RestoreSettings
 function RestoreSettings {
     try {
+        Write-Host "Restoring Settings..."
         $backupLocation = ".\backup\settingsBackup.psd1"
         if (Test-Path $backupLocation) {
             $restoredSettings = Import-Clixml -Path $backupLocation
             # Implement the logic to restore each setting based on the saved values in $restoredSettings
-            Write-Host "Settings restored from backup"
+            Write-Host "...Settings Restored."
+            Start-Sleep -Seconds 2
         } else {
-            Write-Host "Backup file not found"
+            Write-Host "Backup File Not Found."
+            Start-Sleep -Seconds 2
         }
     } catch {
         Write-Host "Error in restore: $_" -ForegroundColor Red
+        Start-Sleep -Seconds 2
     }
 }
+
+

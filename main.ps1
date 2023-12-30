@@ -47,7 +47,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 
 # Function Show Title
 function Show-Title {
-    Write-Host "`n=====================( Netsetera-Psc )======================"
+	Write-Host "`n=====================( Netsetera-Psc )======================"
 }
 
 # Function Show Mainmenu
@@ -70,116 +70,140 @@ function Show-MainMenu {
             '4' { Select-NetworkAdapters }
             '5' { BackupRestoreMenu }
             'x' { Write-Host "Exiting program..."; exit }
+			default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
         }
     } catch {
         Write-Host "Error encountered: $_" -ForegroundColor Red
     }
 }
 
-# Function Networktweaksmenu
+# Function NetworkTweaksMenu
 function NetworkTweaksMenu {
-	Start-Sleep -Seconds 2
-	Clear-Host
+    Start-Sleep -Seconds 2
+    Clear-Host
     Show-Title
     Write-Host "====================( Network Tweaks )======================"
     Write-Host "               1. Toggle RmSvc Service (10/11)"
     Write-Host "          2. Optimize Wireless Adapter (7/8.1/10/11)"
     Write-Host "          3. Toggle Windows Auto-Tuning (7/8.1/10/11)"
     $networkChoice = Read-Host "`nSelect, Options=1-3, Return=X: "
-    switch ($networkChoice) {
-        '1' { ToggleRmSvc }
-        '2' { OptimizeWirelessAdapter }
-        '3' { ToggleWindowsAutoTuning }
-        'x' { return }
-        default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
+    try {
+        switch ($networkChoice) {
+            '1' { ToggleRmSvc }
+            '2' { OptimizeWirelessAdapter }
+            '3' { ToggleWindowsAutoTuning }
+            'x' { return }
+            default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
+        }
+    } catch {
+        Write-Host "Error encountered: $_" -ForegroundColor Red
     }
 }
 
-# Function Windowsupdatesmenu
+# Function WindowsUpdatesMenu
 function WindowsUpdatesMenu {
-	Start-Sleep -Seconds 2
-	Clear-Host
+    Start-Sleep -Seconds 2
+    Clear-Host
     Show-Title
     Write-Host "====================( Windows Updates )====================="
     Write-Host "          1. Disable Windows Updates (7/8.1/10/11)"
     Write-Host "           2. Disable Edge Updates (7/8.1/10/11)"
     $updateChoice = Read-Host "`nSelect, Options=1-2, Return=X: "
-    switch ($updateChoice) {
-        '1' { Disable-WindowsUpdates }
-        '2' { DisableEdgeUpdates }
-        'x' { return }
-        default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
+    try {
+        switch ($updateChoice) {
+            '1' { Disable-WindowsUpdates }
+            '2' { DisableEdgeUpdates }
+            'x' { return }
+            default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
+        }
+    } catch {
+        Write-Host "Error encountered: $_" -ForegroundColor Red
     }
 }
 
 
 
-# Function Cachemanagementmenu
+
+
+
+# Function CacheManagementMenu
 function CacheManagementMenu {
-	Start-Sleep -Seconds 2
-	Clear-Host
+    Start-Sleep -Seconds 2
+    Clear-Host
     Show-Title
     Write-Host "===================( Cache Management )====================="
     Write-Host "              1. Clear DNS Cache (8/8.1/10/11)"
     Write-Host "         2. Clear Multi-Browser Caches (8/8.1/10/11)"
-    $cacheChoice = Read-Host "`nSelect, Options=1-3, Return=X: "
-    switch ($cacheChoice) {
-        '1' { ClearDnsClientCache }
-        '2' { ClearBrowserCaches }
-        'x' { return }
-        default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
+    $cacheChoice = Read-Host "`nSelect, Options=1-2, Return=X: "
+    try {
+        switch ($cacheChoice) {
+            '1' { ClearDnsClientCache }
+            '2' { ClearBrowserCaches }
+            'x' { return }
+            default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
+        }
+    } catch {
+        Write-Host "Error encountered: $_" -ForegroundColor Red
     }
 }
 
-# Function Select Networkadapters
+# Function Select NetworkAdapters
 function Select-NetworkAdapters {
-	Start-Sleep -Seconds 2
-	Clear-Host
+    Start-Sleep -Seconds 2
+    Clear-Host
     Show-Title
     Write-Host "====================( Network Testing )====================="
-	$Adapters = Get-AllNetworkAdapters
-    if ($Adapters.Count -eq 0) {
-        Write-Host "No Adapters Found. Exiting..." -ForegroundColor Yellow
-        return
-    }
-    while ($true) {
-        Clear-Host
-        Write-Host "Network Adapter Monitoring`n" -ForegroundColor Cyan
-        for ($index = 0; $index -lt $Adapters.Count; $index++) {
-            Write-Host "$($index + 1). $($Adapters[$index].Name)"
+    try {
+        $Adapters = Get-AllNetworkAdapters
+        if ($Adapters.Count -eq 0) {
+            Write-Host "No Adapters Found. Exiting..." -ForegroundColor Yellow
+            return
         }
-        Write-Host "`nSelect, Adapter=1-#, Return=X: " -ForegroundColor Cyan
-        $selection = Read-Host "Enter Your Choice"
-        switch ($selection.ToUpper()) {
-            "x" { return }
-            default {
-                if ($selection -match "^\d+$" -and $selection -le $Adapters.Count -and $selection -gt 0) {
-                    Initialize-Monitor -AdapterName $Adapters[$selection - 1].Name
-                    $result = Monitor-AdapterLoop
-                    if ($result -eq "Menu") { continue }
-                    elseif ($result -eq "Exit") { return }
-                } else {
-                    Write-Host "Invalid input. Please try again." -ForegroundColor Red
+        while ($true) {
+            Clear-Host
+            Write-Host "Network Adapter Monitoring`n" -ForegroundColor Cyan
+            for ($index = 0; $index -lt $Adapters.Count; $index++) {
+                Write-Host "$($index + 1). $($Adapters[$index].Name)"
+            }
+            Write-Host "`nSelect, Adapter=1-#, Return=X: " -ForegroundColor Cyan
+            $selection = Read-Host "Enter Your Choice"
+            switch ($selection.ToUpper()) {
+                "x" { return }
+                default {
+                    if ($selection -match "^\d+$" -and $selection -le $Adapters.Count -and $selection -gt 0) {
+                        Initialize-Monitor -AdapterName $Adapters[$selection - 1].Name
+                        $result = Monitor-AdapterLoop
+                        if ($result -eq "Menu") { continue }
+                        elseif ($result -eq "Exit") { return }
+                    } else {
+                        Write-Host "Invalid input. Please try again." -ForegroundColor Red
+                    }
                 }
             }
         }
+    } catch {
+        Write-Host "Error encountered: $_" -ForegroundColor Red
     }
 }
 
-# Function Backuprestoremenu
+# Function BackupRestoreMenu
 function BackupRestoreMenu {
-	Start-Sleep -Seconds 2
-	Clear-Host
+    Start-Sleep -Seconds 2
+    Clear-Host
     Show-Title
     Write-Host "==================( Backup and Restore )===================="
     Write-Host "                   1. Backup Settings"
     Write-Host "                   2. Restore Settings"
     $backupChoice = Read-Host "`nSelect, Options=1-2, Return=X: "
-    switch ($backupChoice) {
-        '1' { BackupSettings }
-        '2' { RestoreSettings }
-        'x' { return }
-        default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
+    try {
+        switch ($backupChoice) {
+            '1' { BackupSettings }
+            '2' { RestoreSettings }
+            'x' { return }
+            default { Write-Host "Invalid choice, try again." -ForegroundColor Red }
+        }
+    } catch {
+        Write-Host "Error encountered: $_" -ForegroundColor Red
     }
 }
 
