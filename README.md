@@ -31,8 +31,23 @@ Select, Options=1-5, Return=X: :
 
 ```
 
-## NOTATION
-Netsetera-Psc program was created out of combining my programs, "EdgeNoUpdate" and "AirTweak" and "NetForm" and unreleased "NetOpt", and is intended to combine the, features and functions, of all of them, while to be having a few improvements along the way.
+## INSTRUCTIONS
+1) Download the Package: Download the package and extract it to a dedicated folder.
+2) Run `Netsetera.Bat` with Admin rights (Right click it and select `Run with Admin`).
+3) Run a Benchmark to test your network speed.
+4) Utilize the Backup function, so, as required, you can restore settings later.
+5) Navigate menu, select your interests.
+6) Navigate menus to `Exit Program`, and then restart computer.
+7) Run `Netsetera.Bat` again, and run the benchmark again, to see, that the tweaking of system settings has made negligable difference.
+
+## REQUIREMENTS
+- Windows 7/8.1/10/11 (Limited features for Windows 7).
+- Powershell Core (Powershell Non-Core un-tested)
+- Administrator Rights
+
+## NOTATIONS
+- If you are benchmarking a wireless connection, then please understand, that it is near impossible to get repeatable results between benchmarks; a slower result after benchmark, may infact still mean it is faster for general use.
+- Netsetera-Psc program was created out of combining my programs, "EdgeNoUpdate" and "AirTweak" and "NetForm" and unreleased "NetOpt", and is intended to combine the, features and functions, of all of them, while to be having a few improvements along the way.
 
 ## DISCLAIMER
 This program is provided "as is" without warranties or support. Users are responsible for the content they, download and use, as well as, any resulting damage to, hardware or sanity.
