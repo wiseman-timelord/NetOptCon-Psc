@@ -18,16 +18,15 @@ Netsetera-Psc is a comprehensive PowerShell script for managing network settings
 ## Preview
 ```
 =====================( Netsetera-Psc )=====================
-
 =======================( Main Menu )=======================
 
                     1. Network Tweaks
                     2. Windows Updates
-                    3. Cache Management
-                    4. Network Testing
+                   3. Cache Management
+                   4. Network Benchmark
                    5. Backup And Restore
 
-Select, Options=1-5, Return=X: :
+Select, Options=1-5, Return=X:
 
 ```
 
