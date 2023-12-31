@@ -1,20 +1,4 @@
-here is my script, that is part of a program, that optimizes network settings, this specific script is based around monitoring the network card of the users choice, however, to improve the program, we will be turning it into a benchmarking tool, but first, lets simplify the script, so that I dont have to spend the rest of the day on it, please remove all code relating to errors and 
-
 # Script: monitor.ps1
-
-# Variables
-$global:totalReceivedRate = 0
-$global:totalSentRate = 0
-$global:count = 0
-$global:avgReceivedRate = 0
-$global:avgSentRate = 0
-$global:totalReceivedKb = 0
-$global:totalSentKb = 0
-$global:totalReceivedErrors = 0
-$global:totalSentErrors = 0
-$global:totalReceivedDiscards = 0
-$global:totalSentDiscards = 0
-
 
 # Function Reset Monitorvariables
 function Reset-MonitorVariables {
@@ -34,46 +18,6 @@ function Reset-MonitorVariables {
 # Function Get Allnetworkadapters
 function Get-AllNetworkAdapters {
     Get-WmiObject -Class Win32_NetworkAdapter | Where-Object { $_.NetEnabled -eq $true } | Select-Object NetConnectionID, Name
-}
-
-# Function Select NetworkAdapters
-function Select-NetworkAdapters {
-    Start-Sleep -Seconds 2
-    Clear-Host
-    Show-Title
-    Write-Host "====================( Network Testing )====================="
-    try {
-        $Adapters = Get-AllNetworkAdapters
-        if ($Adapters.Count -eq 0) {
-            Write-Host "No Adapters Found. Exiting..." -ForegroundColor Yellow
-            return
-        }
-        while ($true) {
-            Clear-Host
-			Write-Host "====================( Network Testing )====================="
-            Write-Host "Monitoring Network Adapter...`n" -ForegroundColor Cyan
-            for ($index = 0; $index -lt $Adapters.Count; $index++) {
-                Write-Host "$($index + 1). $($Adapters[$index].Name)"
-            }
-            Write-Host "`nSelect, Adapter=1-#, Return=X" -ForegroundColor Cyan
-            $selection = Read-Host "Enter Your Choice"
-            switch ($selection.ToUpper()) {
-                "x" { return }
-                default {
-                    if ($selection -match "^\d+$" -and $selection -le $Adapters.Count -and $selection -gt 0) {
-                        Initialize-Monitor -AdapterName $Adapters[$selection - 1].Name
-                        $result = Monitor-AdapterLoop
-                        if ($result -eq "Menu") { continue }
-                        elseif ($result -eq "Exit") { return }
-                    } else {
-                        Write-Host "Invalid input. Please try again." -ForegroundColor Red
-                    }
-                }
-            }
-        }
-    } catch {
-        Write-Host "Error encountered: $_" -ForegroundColor Red
-    }
 }
 
 # Function Initialize Monitor
@@ -137,7 +81,6 @@ function Monitor-AdapterLoop {
         Write-Host "Total Errors Out: $($global:totalSentErrors), Total Discards Out: $($global:totalSentDiscards)"
         Write-Host "`nOptions: [R]estart Monitoring, [M]enu" -ForegroundColor Cyan
         $choice = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character.ToString().ToLower()
-
         switch ($choice) {
             "r" {
                 Reset-MonitorVariables

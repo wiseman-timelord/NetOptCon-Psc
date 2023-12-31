@@ -1,6 +1,6 @@
 # Script: backup.ps1
 
-# Function BackupSettings
+# Function Backupsettings
 function BackupSettings {
     try {
         Write-Host "Starting Backup..."
@@ -26,14 +26,13 @@ function BackupSettings {
     }
 }
 
-# Function RestoreSettings
+# Function Restoresettings
 function RestoreSettings {
     try {
         Write-Host "Restoring Settings..."
         $backupLocation = ".\backup\settingsBackup.psd1"
         if (Test-Path $backupLocation) {
             $restoredSettings = Import-Clixml -Path $backupLocation
-            # Implement the logic to restore each setting based on the saved values in $restoredSettings
             Write-Host "...Settings Restored."
             Start-Sleep -Seconds 2
         } else {
@@ -45,5 +44,3 @@ function RestoreSettings {
         Start-Sleep -Seconds 2
     }
 }
-
-

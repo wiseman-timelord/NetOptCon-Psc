@@ -1,6 +1,4 @@
 # Script: main.ps1
-
-# Initialization
 Set-Location -Path $PSScriptRoot
 . .\scripts\network.ps1
 . .\scripts\updates.ps1
@@ -38,8 +36,7 @@ $global:totalSentErrors = 0
 $global:totalReceivedDiscards = 0
 $global:totalSentDiscards = 0
 
-
-# Get-Admin
+# Got Admin?
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
     Write-Host "This script requires administrator privileges. Please run as Administrator." -ForegroundColor Red
     exit
@@ -52,7 +49,7 @@ function Show-Title {
 
 # Function Show Mainmenu
 function Show-MainMenu {
-    Start-Sleep -Seconds 2 #-- 2 normal, 10 debug
+    Start-Sleep -Seconds 2 
     Clear-Host
     Show-Title
     Write-Host "=======================( Main Menu )========================"
@@ -77,7 +74,7 @@ function Show-MainMenu {
     }
 }
 
-# Function NetworkTweaksMenu
+# Function Networktweaksmenu
 function NetworkTweaksMenu {
     Start-Sleep -Seconds 2
     Clear-Host
@@ -100,7 +97,7 @@ function NetworkTweaksMenu {
     }
 }
 
-# Function WindowsUpdatesMenu
+# Function Windowsupdatesmenu
 function WindowsUpdatesMenu {
     Start-Sleep -Seconds 2
     Clear-Host
@@ -121,7 +118,7 @@ function WindowsUpdatesMenu {
     }
 }
 
-# Function CacheManagementMenu
+# Function Cachemanagementmenu
 function CacheManagementMenu {
     Start-Sleep -Seconds 2
     Clear-Host
@@ -142,7 +139,7 @@ function CacheManagementMenu {
     }
 }
 
-# Function Select NetworkAdapters
+# Function Select Networkadapters
 function Select-NetworkAdapters {
     Start-Sleep -Seconds 2
     Clear-Host
@@ -151,17 +148,17 @@ function Select-NetworkAdapters {
     try {
         $Adapters = Get-AllNetworkAdapters
         if ($Adapters.Count -eq 0) {
-            Write-Host "No Adapters Found. Exiting..." -ForegroundColor Yellow
+            Write-Host "No Adapters Found. Exiting..."
             return
         }
         while ($true) {
             Clear-Host
 			Write-Host "====================( Network Testing )====================="
-            Write-Host "Monitoring Network Adapter...`n" -ForegroundColor Cyan
+            Write-Host "Monitoring Network Adapter...`n"
             for ($index = 0; $index -lt $Adapters.Count; $index++) {
                 Write-Host "$($index + 1). $($Adapters[$index].Name)"
             }
-            Write-Host "`nSelect, Adapter=1-#, Return=X" -ForegroundColor Cyan
+            Write-Host "`nSelect, Adapter=1-#, Return=X"
             $selection = Read-Host "Enter Your Choice"
             switch ($selection.ToUpper()) {
                 "x" { return }
@@ -182,7 +179,7 @@ function Select-NetworkAdapters {
     }
 }
 
-# Function BackupRestoreMenu
+# Function Backuprestoremenu
 function BackupRestoreMenu {
     Start-Sleep -Seconds 2
     Clear-Host
@@ -203,7 +200,7 @@ function BackupRestoreMenu {
     }
 }
 
-# Main Loop
+# Entry Point
 while ($true) {
     Show-MainMenu
 }

@@ -19,7 +19,6 @@ function ToggleRmSvc {
     }
 }
 
-
 # Function Optimizewirelessadapter
 function OptimizeWirelessAdapter {
     Write-Host "Optimizing Wireless Adapter..."
