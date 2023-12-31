@@ -2,7 +2,7 @@
 ## STATUS
 - Alpha. Do not use, the files are present for backup purposes ONLY, and will likely break, something or itself. Please Wait.
 - Outstanding work...
-1. Idea - Performance benchmark instead of performance testing. See how fast it download, with limit of 1 minute, present results, how long expired, how much was downloaded, score in MB downloaded, if finish early then predict how many MB would be achieved and add on, and also deduct 1 point for each, error and discard. Figured out.
+1. Idea - Performance benchmark instead of performance testing. See how fast it download, with limit of 1 minute, present results, how long expired, how much was downloaded, score in MB downloaded, if finish early then predict how many MB would be achieved and add on, and also deduct 1 point for each, error and discard. This is now delaying the project.
 2. Figure out what URLS work, remove rest, add option to enter a URL (futureproof).
 
 ## DESCRIPTION
