@@ -49,5 +49,5 @@ Select, Options=1-5, Return=X:
 - If you are benchmarking a wireless connection, then please understand, that it is near impossible to get repeatable results between benchmarks; a slower result after benchmark, may infact still mean it is faster for general use.
 - Netsetera-Psc program was created out of combining my programs, "EdgeNoUpdate" and "AirTweak" and "NetForm" and unreleased "NetOpt", and is intended to combine the, features and functions, of all of them, while to be having a few improvements along the way.
 
-### DISCLAIMER
-Read "License.Txt", its, what its there for and why its supplied with the package.
+## DISCLAIMER
+The "License.Txt" covers, this and relating, stuff.
