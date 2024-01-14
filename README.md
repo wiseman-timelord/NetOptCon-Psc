@@ -50,4 +50,4 @@ Select, Options=1-5, Return=X:
 - Netsetera-Psc program was created out of combining my programs, "EdgeNoUpdate" and "AirTweak" and "NetForm" and unreleased "NetOpt", and is intended to combine the, features and functions, of all of them, while to be having a few improvements along the way.
 
 ## DISCLAIMER
-The "License.Txt" covers, this and relating, stuff.
+This software is subject to the terms in License.Txt, covering usage, distribution, and modifications. For full details on your rights and obligations, refer to License.Txt.
